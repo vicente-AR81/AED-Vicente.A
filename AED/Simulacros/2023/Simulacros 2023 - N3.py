@@ -1,3 +1,4 @@
+#Nota 10, resuelto en 17 min
 import random
 random.seed(3374)
 n = 19000
