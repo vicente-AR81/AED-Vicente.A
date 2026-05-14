@@ -1,15 +1,14 @@
 import random
 
-# Parcial 1 - Tema 4 - 2024
+# Problema P1T5 - Parcial 1 - Tema 5
 # iniciar el generador de valores aleatorios con un valor fijo...
-random.seed(1475)
+random.seed(2753)
 
 # cantidad fija de números a procesar...
-# n = 50
-n = 17000
+n = 30000
 
-# variable para contener al mayor pedido...
-may = None
+# variable para contener al menor pedido...
+men = None
 
 # inicialización de contadores, acumuladores y otras variables necesarias...
 c1, c2, c3, a, c, ci = 0, 0, 0, 0, 0, 0
@@ -21,31 +20,31 @@ st = 0
 print('Procesamiento de una sucesión de', n, 'números enteros aleatorios...')
 for i in range(1, n + 1):
     # generar un número aleatorio en el rango pedido...
-    num = random.randint(-100, 15000)
+    num = random.randint(-15000, 15000)
     st += num
 
-    # 1. contar/sumar cada número en los intervalos pedidos...
+    # 1. contar cada número en los intervalos pedidos...
     if num < 0:
-        c1 += num
-    elif 0 <= num < 10000 and num % 4 == 0:
-        c2 += 1
-    elif num >= 10000:
+        c1 += 1
+    elif 0 <= num < 5000:
+        c2 += num
+    elif num >= 5000 and num % 2 == 1:
         c3 += 1
 
-    # 2. sumar y contar los números para el promedio pedido...
-    if 0 < num <= 8000 and num % 6 == 0:
+    # 2. sumar y contar los números negativos divisibles por 3 y por 5 para el promedio pedido...
+    if num < 0 and num % 3 == 0 and num % 5 == 0:
         a += num
         c += 1
 
-    # 3. determinar el mayor entre los números pedidos...
-    if num > 5000 and num % 5 == 0:
-        if may is None:
-            may = num
-        elif num > may:
-            may = num
+    # 3. determinar el menor entre los negativos impares...
+    if num > 0 and num % 3 == 0 and num % 4 != 0:
+        if men is None:
+            men = num
+        elif num < men:
+            men = num
 
-    # 4. contar los pares para el porcentaje pedido...
-    if num % 2 == 0:
+    # 4. contar los números negativos impares para el porcentaje pedido...
+    if num < 0 and num % 2 == 1:
         ci += 1
 
 # Mostrar la suma de todos los números, para controlar validez del conjunto generado...
@@ -53,23 +52,23 @@ print('Control de validez de los números generados - La suma de todos ellos es:
 print()
 
 print('Punto 1...')
-print('\tSuma de los números negativos:', c1)
-print('\tCantidad de números en [0, 10000) divisibles por 4:', c2)
-print('\tCantidad de números mayores o iguales que 10000:', c3)
+print('\tCantidad de números que eran negativos:', c1)
+print('\tSuma de los números mayores o iguales a cero y menores que 5000:', c2)
+print('\tCantidad de números mayores o iguales que 5000 impares:', c3)
 print()
 
 print('Punto 2...')
 prom = 0
 if c != 0:
     prom = a // c
-print('\tPromedio entero de los números en (0, 8000] y divisibles por 6:', prom)
+print('\tPromedio entero de los números generados negativos y divisibles por 3 y por 5:', prom)
 print()
 
 print('Punto 3...')
-print('\tEl mayor de todos los números generados que sean mayores que 5000 y divisibles por 5:', may)
+print('\tEl menor de todos los números generados mayores que cero y divisibles por 3:', men)
 print()
 
 print('Punto 4...')
 porc = ci * 100 // n
-print('\tPorcentaje (entero) que los números pares generados representan en el total:', porc, '\b%')
+print('\tPorcentaje (entero) que la cantidad de negativos impares representan en el total:', porc, '\b%')
 print()
